@@ -1,3 +1,9 @@
+Travis
+============
+
+[![Build Status](https://travis-ci.org/devDzign/apirestoken.svg?branch=master)](https://travis-ci.org/devDzign/apirestoken)
+
+
 France tv Api Symfony 3
 ======
 

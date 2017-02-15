@@ -34,7 +34,7 @@ abstract class AbstractApiController extends FOSRestController
     {
         return $this->sendResponse($data, $httpCode);
     }
-    
+
     /**
      * Envoi une réponse HTTP avec son code (200 par défaut) en JSON
      *
@@ -46,14 +46,14 @@ abstract class AbstractApiController extends FOSRestController
     private function sendResponse($data = array(), $httpCode = Response::HTTP_OK)
     {
         $view = $this->view($data, $httpCode);
-        
+
         $acceptHeader = $this->get('request_stack')->getCurrentRequest()->headers->get('Accept');
-        $format       = ($acceptHeader === 'application/xml') ? 'xml' : 'json';
+        $format = ($acceptHeader === 'application/xml') ? 'xml' : 'json';
         $view->setFormat($format);
-        
+
         return $this->handleView($view);
     }
-    
+
     /**
      * Send many errors
      *
@@ -65,7 +65,7 @@ abstract class AbstractApiController extends FOSRestController
     {
         return $this->sendResponse($data, $httpCode);
     }
-    
+
     /**
      * send one error : message + code
      *
@@ -80,19 +80,18 @@ abstract class AbstractApiController extends FOSRestController
         $internalErrorCode,
         $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR,
         array $parametres = []
-    )
-    {
+    ) {
         return $this->sendResponse(
             [
                 [
                     'message' => $this->get("translator")->trans($message, $parametres),
-                    'code' => $internalErrorCode,
+                    'code'    => $internalErrorCode,
                 ],
             ],
             $httpCode
         );
     }
-    
+
     /**
      * @param FormInterface $form
      * @return \Symfony\Component\HttpFoundation\Response
@@ -100,14 +99,20 @@ abstract class AbstractApiController extends FOSRestController
     protected function sendResponseFormError(FormInterface $form)
     {
         $errors = $this->getErrors($form);
-        
+
         if (($form->getData() == null || $form->isEmpty()) && empty($target)) {
-            array_unshift($errors, ['message' => $this->get("translator")->trans('Form is empty'), 'code' => InternalErrorCodes::FORM_ERROR]);
+            array_unshift(
+                $errors,
+                [
+                    'message' => $this->get("translator")->trans('Form is empty'),
+                    'code'    => InternalErrorCodes::FORM_ERROR,
+                ]
+            );
         }
-        
+
         return $this->sendResponse($errors, Codes::HTTP_BAD_REQUEST);
     }
-    
+
     /**
      * @param FormInterface $form
      * @param string $target
@@ -115,13 +120,17 @@ abstract class AbstractApiController extends FOSRestController
      */
     protected function getErrors(FormInterface $form, $target = '')
     {
-        $errors     = array();
+        $errors = array();
         $translator = $this->get('translator');
-        
+
         $formErrorIterator = $form->getErrors();
         foreach ($formErrorIterator as $error) {
             if (!empty($target)) {
-                $errors[] = ['message' => $translator->trans($error->getMessage(), $error->getMessageParameters()), 'code' => InternalErrorCodes::FORM_ERROR, 'target' => $target];
+                $errors[] = [
+                    'message' => $translator->trans($error->getMessage(), $error->getMessageParameters()),
+                    'code'    => InternalErrorCodes::FORM_ERROR,
+                    'target'  => $target,
+                ];
             } else {
                 if ('data.username' == $error->getCause()->getPropertyPath()
                     && $error->getCause()->getConstraint() instanceof UniqueEntity
@@ -129,14 +138,17 @@ abstract class AbstractApiController extends FOSRestController
                 ) {
                     continue;
                 }
-                $errors[] = ['message' => $translator->trans($error->getMessage(), $error->getMessageParameters()), 'code' => InternalErrorCodes::FORM_EXTRA_FIELD];
+                $errors[] = [
+                    'message' => $translator->trans($error->getMessage(), $error->getMessageParameters()),
+                    'code'    => InternalErrorCodes::FORM_EXTRA_FIELD,
+                ];
             }
         }
         foreach ($form->all() as $key => $child) {
-            $errors = array_merge($errors, $this->getErrors($child, (empty($target) ? '' : $target . '.') . $key));
+            $errors = array_merge($errors, $this->getErrors($child, (empty($target) ? '' : $target.'.').$key));
         }
-        
+
         return $errors;
     }
-    
+
 }

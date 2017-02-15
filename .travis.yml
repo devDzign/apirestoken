@@ -18,7 +18,7 @@ matrix:
   # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
   fast_finish: true
   include:
-    - php: '7.0'
+#    - php: '7.0'
     - php: '7.1'
   allow_failures:
     - php: hhvm
@@ -35,7 +35,7 @@ before-install:
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
-  - composer install
+#  - composer install
 #  - cp app/config/parameters.yml.dist app/config/parameters.yml
 #  - php bin/console doctrine:database:create --env=test
 #  - php bin/console doctrine:schema:create --env=test

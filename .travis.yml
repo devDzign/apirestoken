@@ -29,7 +29,6 @@ env:
 
 # Update composer
 before-install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS apiresttoken_test;'
   - composer self-update
 
 
@@ -44,7 +43,7 @@ install:
 
 # Run script
 script:
-  - sh -c "mysql -e 'CREATE DATABASE cakephp_test;'"
+  - sh -c "mysql -e 'CREATE DATABASE IF NOT EXISTS apiresttoken_test;'"
   - sh test_luncher.sh
 
 # After a build, send email notification with the build results

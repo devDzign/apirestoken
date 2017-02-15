@@ -22,7 +22,8 @@ matrix:
     - php: '7.1'
   allow_failures:
     - php: hhvm
-
+before_script :
+  - sh -c "mysql -e 'CREATE DATABASE cakephp_test;'"
 # Define an environment variable
 env:
   - SYMFONY_VERSION="3.1.*" DB=mysql

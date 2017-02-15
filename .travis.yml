@@ -18,7 +18,6 @@ matrix:
   # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
   fast_finish: true
   include:
-#    - php: '7.0'
     - php: '7.1'
   allow_failures:
     - php: hhvm
@@ -43,7 +42,7 @@ install:
 
 # Run script
 script:
-  - sh -c "mysql -e 'CREATE DATABASE IF NOT EXISTS apiresttoken_test;'"
+  - sh -c "mysql -e 'CREATE DATABASE IF NOT EXISTS test;'"
   - sh test_luncher.sh
 
 # After a build, send email notification with the build results

@@ -1,0 +1,9 @@
+#services:
+#    jwt_token_authenticator:
+#        class: "France\TvBundle\Security\JwtTokenAuthenticator"
+#        arguments: ["@request_stack"]
+#        autowire: true
+
+services:
+    acme_api.encoder.nixilla_jwt_encoder:
+        class: France\TvBundle\Encoder\NixillaJWTEncoder

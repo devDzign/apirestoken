@@ -1,0 +1,25 @@
+francetv:
+    resource: "@TvBundle/Controller/DefaultController.php"
+    type:     annotation
+    prefix:   /
+france.tv.articles:
+    type:   rest
+    resource:   "@TvBundle/Controller/ArticlesController.php"
+    prefix: /api/v1/articles
+france.tv.users:
+    type:   rest
+    resource:   "@TvBundle/Controller/UsersController.php"
+    prefix: /api/v1/users
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /doc
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+api_login_check:
+    path: /api/login_check
+gesdinet_jwt_refresh_token:
+    path:     /api/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+
+
+

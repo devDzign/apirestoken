@@ -1,1 +1,37 @@
-Hello World Api fr Tele!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <button id="action">Lancer la requête HTTP GET</button><br/>
+    <div id="res">
+
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script>
+
+
+        $(function () {
+            $('#action').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api-pa-vn-dvpt.kreatec.fr/app_dev.php/search?query=t',
+                    timeout: 3000,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function () {
+                        alert('La requête n\'a pas abouti');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+{% endblock %}

@@ -79,9 +79,10 @@ fos_rest:
         formats:
             json: true
             xml:  true
+            html:  true
     format_listener:
         rules:
-            - { path: '^/', priorities: ['json', 'xml'], fallback_format: 'json', prefer_extension: false }
+            - { path: '^/', priorities: ['json', 'xml','html'], fallback_format: 'json', prefer_extension: false }
     # configuration à rajouter pour activer le body listener alimente Request
     body_listener:
         enabled: true
@@ -141,5 +142,5 @@ m6web_guzzlehttp:
     clients:
         default: ~
         other:
-            base_uri: "http://apirestoken.dev"
+            base_uri: "https://api-pa-vn-dvpt.kreatec.fr"
 

@@ -42,8 +42,21 @@
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "phpspec/phpspec": "^2.4",
+        "behat/behat": "dev-master",
+        "behat/mink": "^1.7",
+        "behat/mink-extension": "^2.1",
+        "behat/mink-browserkit-driver": "^1.3",
+        "behat/symfony2-extension": "dev-symfony3"
     },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/codereviewvideos/Symfony2Extension"
+        }
+    ],
     "scripts": {
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
